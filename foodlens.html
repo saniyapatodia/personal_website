@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodLens | Join the Waitlist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .foodlens-container {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: radial-gradient(ellipse at top, #1a0f2e 0%, #0a0a0a 50%);
+            background-attachment: fixed;
+        }
+
+        /* Starry background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Horizon glow */
+        .horizon-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to top, rgba(255, 182, 193, 0.3), transparent);
+            pointer-events: none;
+            z-index: 1;
+            filter: blur(60px);
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 700px;
+            width: 100%;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .hero-title .script {
+            font-family: 'Dancing Script', cursive;
+            font-style: italic;
+            font-weight: 500;
+            font-size: 1.1em;
+        }
+
+        .hero-description {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .waitlist-form {
+            display: flex;
+            gap: 0.5rem;
+            max-width: 500px;
+            margin: 0 auto 4rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .email-input {
+            flex: 1;
+            min-width: 250px;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: inherit;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .email-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .notify-btn {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            white-space: nowrap;
+        }
+
+        .notify-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .notify-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .success-message {
+            margin-top: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .auth-links {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 100;
+        }
+
+        .auth-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .auth-link:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .back-link {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #ffffff;
+        }
+
+        /* Auth Modal */
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .auth-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .auth-modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 450px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(20px);
+        }
+
+        .auth-modal.active .auth-modal-content {
+            transform: scale(1);
+        }
+
+        .auth-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .auth-modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+
+        .auth-modal-title {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .auth-modal-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .form-error {
+            color: #ff6b6b;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-error.show {
+            display: block;
+        }
+
+        .switch-auth {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
+        .switch-auth a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .switch-auth a:hover {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .auth-links {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .back-link {
+                top: 1rem;
+                left: 1rem;
+            }
+
+            .waitlist-form {
+                flex-direction: column;
+            }
+
+            .email-input,
+            .notify-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="foodlens-container">
+        <!-- Starry Background -->
+        <div class="stars" id="stars"></div>
+        <div class="horizon-glow"></div>
+
+        <a href="index.html" class="back-link">← back</a>
+        
+        <div class="auth-links">
+            <a href="#" class="auth-link" onclick="openAuthModal('signin'); return false;">sign in</a>
+            <a href="#" class="auth-link" onclick="openAuthModal('signup'); return false;">sign up</a>
+        </div>
+
+        <div class="content">
+            <div class="badge">
+                <span>Waitlist</span>
+                <span>•</span>
+                <span>FoodLens</span>
+            </div>
+
+            <h1 class="hero-title">
+                Good things come to those who <span class="script">wait</span>.
+            </h1>
+
+            <p class="hero-description">
+                Launch your personalized nutrition journey. Join the waitlist and be first to experience food scanning that understands your goals.
+            </p>
+
+            <form class="waitlist-form" id="waitlistForm" onsubmit="handleWaitlistSubmit(event)">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Your Email Address" 
+                    required
+                    id="waitlist-email"
+                />
+                <button type="submit" class="notify-btn" id="notify-btn">
+                    Get Notified
+                </button>
+                <div class="success-message" id="success-message">
+                    ✓ You've been added to the waitlist!
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="auth-modal" id="authModal">
+        <div class="auth-modal-content">
+            <button class="auth-modal-close" onclick="closeAuthModal()">×</button>
+            
+            <!-- Sign In Form -->
+            <div id="signinForm" class="auth-form">
+                <h2 class="auth-modal-title">sign in</h2>
+                <p class="auth-modal-subtitle">welcome back to foodlens</p>
+                <form onsubmit="handleSignIn(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="signin-email">email</label>
+                        <input 
+                            type="email" 
+                            id="signin-email" 
+                            class="form-input" 
+                            placeholder="your@email.com" 
+                            required
+                        />
+                        <div class="form-error" id="signin-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signin-password">password</label>
+                        <input 
+                            type="password" 
+                            id="signin-password" 
+                            class="form-input" 
+                            placeholder="••••••••" 
+                            required
+                        />
+                    </div>
+                    <button type="submit" class="submit-btn" id="signin-submit">
+                        sign in
+                    </button>
+                </form>
+                <div class="switch-auth">
+                    don't have an account? <a href="#" onclick="switchAuthForm('signup'); return false;">sign up</a>
+                </div>
+            </div>
+
+            <!-- Sign Up Form -->
+            <div id="signupForm" class="auth-form" style="display: none;">
+                <h2 class="auth-modal-title">sign up</h2>
+                <p class="auth-modal-subtitle">join foodlens and start your nutrition journey</p>
+                <form onsubmit="handleSignUp(event)">
+                    <div class="form-group">
+                        <label class="form-label" for="signup-name">name</label>
+                        <input 
+                            type="text" 
+                            id="signup-name" 
+                            class="form-input" 
+                            placeholder="your name" 
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signup-email">email</label>
+                        <input 
+                            type="email" 
+                            id="signup-email" 
+                            class="form-input" 
+                            placeholder="your@email.com" 
+                            required
+                        />
+                        <div class="form-error" id="signup-error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signup-password">password</label>
+                        <input 
+                            type="password" 
+                            id="signup-password" 
+                            class="form-input" 
+                            placeholder="••••••••" 
+                            required
+                            minlength="8"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="signup-location">location</label>
+                        <select id="signup-location" class="form-input" required>
+                            <option value="">select your country</option>
+                            <option value="canada">🇨🇦 Canada</option>
+                            <option value="australia">🇦🇺 Australia</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="submit-btn" id="signup-submit">
+                        create account
+                    </button>
+                </form>
+                <div class="switch-auth">
+                    already have an account? <a href="#" onclick="switchAuthForm('signin'); return false;">sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create starry background
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numStars = 150;
+            
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = Math.random() * 2 + 'px';
+                star.style.height = star.style.width;
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        // Auth Modal Functions
+        function openAuthModal(type) {
+            const modal = document.getElementById('authModal');
+            modal.classList.add('active');
+            switchAuthForm(type);
+        }
+
+        function closeAuthModal() {
+            const modal = document.getElementById('authModal');
+            modal.classList.remove('active');
+            document.getElementById('signinForm').querySelector('form').reset();
+            document.getElementById('signupForm').querySelector('form').reset();
+            document.getElementById('signin-error').classList.remove('show');
+            document.getElementById('signup-error').classList.remove('show');
+        }
+
+        function switchAuthForm(type) {
+            const signinForm = document.getElementById('signinForm');
+            const signupForm = document.getElementById('signupForm');
+            
+            if (type === 'signin') {
+                signinForm.style.display = 'block';
+                signupForm.style.display = 'none';
+            } else {
+                signinForm.style.display = 'none';
+                signupForm.style.display = 'block';
+            }
+        }
+
+        document.getElementById('authModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeAuthModal();
+            }
+        });
+
+        // Waitlist Form Handler
+        function handleWaitlistSubmit(event) {
+            event.preventDefault();
+            const email = document.getElementById('waitlist-email').value;
+            const submitBtn = document.getElementById('notify-btn');
+            const successMsg = document.getElementById('success-message');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'joining...';
+
+            setTimeout(() => {
+                console.log('Waitlist signup:', { email });
+                successMsg.classList.add('show');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Get Notified';
+                document.getElementById('waitlistForm').reset();
+                
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                }, 5000);
+            }, 1000);
+        }
+
+        // Sign In Handler
+        function handleSignIn(event) {
+            event.preventDefault();
+            const email = document.getElementById('signin-email').value;
+            const password = document.getElementById('signin-password').value;
+            const submitBtn = document.getElementById('signin-submit');
+            const errorMsg = document.getElementById('signin-error');
+
+            errorMsg.classList.remove('show');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'signing in...';
+
+            setTimeout(() => {
+                console.log('Sign in:', { email });
+                if (email && password) {
+                    alert('Sign in successful! (This is a demo)');
+                    closeAuthModal();
+                } else {
+                    errorMsg.textContent = 'Invalid email or password';
+                    errorMsg.classList.add('show');
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'sign in';
+            }, 1000);
+        }
+
+        // Sign Up Handler
+        function handleSignUp(event) {
+            event.preventDefault();
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const location = document.getElementById('signup-location').value;
+            const submitBtn = document.getElementById('signup-submit');
+            const errorMsg = document.getElementById('signup-error');
+
+            errorMsg.classList.remove('show');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'creating account...';
+
+            setTimeout(() => {
+                console.log('Sign up:', { name, email, location });
+                if (email && password && name && location) {
+                    alert('Account created successfully! (This is a demo)');
+                    closeAuthModal();
+                } else {
+                    errorMsg.textContent = 'Please fill in all fields';
+                    errorMsg.classList.add('show');
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'create account';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
