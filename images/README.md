@@ -1,34 +1,12 @@
-# Add Your Photos Here!
+# photos for the landing page
 
-To add your own photos that appear when you hover your cursor:
+These are the pictures that sometimes show up when you move the mouse on the main screen (desktop).
 
-1. **Add your photos** to this `images` folder
-2. **Name them** as: `photo1.jpg`, `photo2.jpg`, `photo3.jpg`, etc. (up to `photo10.jpg`)
-3. The photos will automatically appear with a popup message "moments from my journey"
+1. Put files in this folder.
+2. Add each path to the `photoPaths` array in `script.js` (see the existing `images/IMG_….jpeg` entries).
 
-## Supported Formats
-- `.jpg` / `.jpeg`
-- `.png`
-- `.webp`
-- `.gif`
+Formats that usually work: jpeg, png, webp, gif.
 
-## Tips
-- Use square or portrait photos for best results
-- Recommended size: 400x400px to 800x800px
-- Keep file sizes reasonable (under 500KB each) for faster loading
-- Photos are automatically dimmed (70% brightness) for a subtle, professional look
+Smaller files load faster — if something feels slow, try resizing or compressing before you add them.
 
-## Current Setup
-The website is configured to use 10 photos:
-- `photo1.jpg` through `photo10.jpg`
-
-## Customizing the Popup Message
-To change the popup message, edit `script.js` and find:
-```javascript
-const popupMessage = "moments from my journey";
-```
-
-Change it to whatever you'd like! Some suggestions:
-- "snapshots of my story"
-- "glimpses into my world"
-- "captured moments"
+To change the small label that appears with a photo, edit `snapshotPopupMessage` in `script.js`.
