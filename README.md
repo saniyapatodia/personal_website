@@ -1,4 +1,4 @@
-# Personal Website - Tech + Finance
+# Personal website
 
 A quirky, modern personal website with interactive cursor effects and smooth animations.
 
