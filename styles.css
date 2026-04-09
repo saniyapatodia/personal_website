@@ -4,20 +4,18 @@
     box-sizing: border-box;
 }
 
-/* Theme: Dark (Default) */
+/* True black canvas + lifted surfaces (easier to read than flat dark) */
 :root {
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #242424;
-    --text-primary: #e0e0e0;
-    --text-secondary: #888888;
+    --bg-primary: #000000;
+    --bg-secondary: #1c1c1e;
+    --text-primary: #f2f2f4;
+    --text-secondary: #a8a8ae;
     --accent: #ffffff;
-    --accent-secondary: #b0b0b0;
-    --accent-tertiary: #d0d0d0;
-    --border-color: #333333;
-    --hover-glow: rgba(255, 255, 255, 0.1);
+    --accent-secondary: #d4d4d8;
+    --accent-tertiary: #b4b4bc;
+    --border-color: #3a3a3e;
+    --hover-glow: rgba(255, 255, 255, 0.12);
 }
-
-/* Additional color themes removed; dark theme only */
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
@@ -52,7 +50,7 @@ body {
     z-index: 9999;
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.25);
     mix-blend-mode: difference;
 }
 
@@ -101,18 +99,19 @@ body {
     pointer-events: none;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
     transform: translate(-50%, -50%) scale(0);
     will-change: transform, opacity;
     backdrop-filter: blur(10px);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: brightness(1.05) contrast(1.08) saturate(1.08);
 }
 
 .cursor-img.active {
-    opacity: 0.52;
+    opacity: 1;
     z-index: 9999;
 }
 
@@ -121,7 +120,7 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
-    filter: brightness(1.05) contrast(1.08) saturate(1.08);
+    filter: brightness(1.14) contrast(1.06) saturate(1.1);
 }
 
 /* Photo Popup */
@@ -143,8 +142,8 @@ body {
     transition: opacity 0.3s ease, transform 0.3s ease;
     white-space: nowrap;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
 }
 
 .container {
@@ -289,6 +288,7 @@ body {
     z-index: 5;
     animation: none;
     --card-accent: #a78bfa;
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 /* Layout: corners (default) */
@@ -370,16 +370,6 @@ body {
 
 .layout-center-row .icon-card:hover {
     transform: translateX(-50%) translateY(-10px) scale(1.05);
-}
-
-@media (max-width: 768px) {
-    .layout-center-row .icon-top-left {
-        left: calc(50% - 120px);
-    }
-    
-    .layout-center-row .icon-bottom-left {
-        left: calc(50% + 120px);
-    }
 }
 
 /* Layout: side columns (vertical) */
@@ -473,15 +463,15 @@ body {
 
 .icon-card:hover {
     transform: translateY(-10px) scale(1.05);
-    border-color: color-mix(in srgb, var(--card-accent) 65%, var(--border-color));
+    border-color: color-mix(in srgb, var(--card-accent) 50%, var(--border-color));
     box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.5),
-        0 0 0 1px color-mix(in srgb, var(--card-accent) 25%, transparent),
+        0 20px 44px rgba(0, 0, 0, 0.45),
+        0 0 0 1px color-mix(in srgb, var(--card-accent) 28%, transparent),
         0 0 28px color-mix(in srgb, var(--card-accent) 22%, transparent);
     background: linear-gradient(
         135deg,
         var(--bg-secondary),
-        color-mix(in srgb, var(--card-accent) 8%, transparent)
+        color-mix(in srgb, var(--card-accent) 10%, transparent)
     );
 }
 
@@ -535,7 +525,7 @@ body {
 
 .icon-card:hover .icon-number,
 .icon-card:hover .icon-label {
-    color: color-mix(in srgb, var(--card-accent) 65%, #ffffff);
+    color: color-mix(in srgb, var(--card-accent) 55%, #ffffff);
 }
 
 .icon-top-left {
@@ -615,6 +605,7 @@ body {
     border-radius: 12px;
     transition: all 0.3s ease;
     text-align: center;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .about-item:hover {
@@ -699,6 +690,7 @@ body {
     border-radius: 12px;
     text-align: center;
     transition: all 0.3s ease;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .goal-card:hover {
@@ -740,6 +732,7 @@ body {
     transition: all 0.3s ease;
     text-align: center;
     max-width: 420px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 .project-card:hover {
@@ -840,6 +833,18 @@ body {
     transform: translateY(-3px);
 }
 
+.footer-content .footer-hint {
+    margin-top: 2rem;
+    margin-bottom: 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    opacity: 0.85;
+    max-width: 22rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Animations */
 @keyframes fadeIn {
     from {
@@ -881,8 +886,68 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .landing {
+        min-height: 100dvh;
+        padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+        align-items: stretch;
+    }
+
+    /* Stack landing: absolute horizontal row overflows on narrow screens */
+    .landing-content.layout-center-row {
+        height: auto;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        padding: 1.5rem 1rem max(2rem, env(safe-area-inset-bottom));
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .landing-content.layout-center-row .web-connections {
+        display: none;
+    }
+
+    .landing-content .name-title {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 0 0 0.25rem;
+        max-width: 100%;
+        font-size: clamp(1.65rem, 7vw, 2.5rem);
+    }
+
+    .landing-content .name-title:hover {
+        transform: scale(1.02);
+    }
+
+    .landing-content.layout-center-row .icon-card {
+        position: relative !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
+        transform: none !important;
+        width: 100%;
+        max-width: min(22rem, 100%);
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
+
+    .landing-content.layout-center-row .icon-card:hover {
+        transform: translateY(-6px) scale(1.02) !important;
+    }
+
+    .landing-content.layout-center-row .icon-card:hover::after {
+        bottom: -10px;
+    }
+
     .icon-card {
-        padding: 1rem;
+        padding: 1rem 1.25rem;
     }
 
     .icon-wrapper {
@@ -890,41 +955,25 @@ body {
         height: 50px;
     }
 
-    .icon-top-left,
-    .icon-top-right,
-    .icon-bottom-left,
-    .icon-bottom-right {
-        position: fixed;
-    }
-
-    .icon-top-left {
-        top: 1rem;
-        left: 1rem;
-    }
-
-    .icon-top-right {
-        top: 1rem;
-        right: 1rem;
-    }
-
-    .icon-bottom-left {
-        bottom: 1rem;
-        left: 1rem;
-    }
-
-    .icon-bottom-right {
-        bottom: 1rem;
-        right: 1rem;
-    }
-
-    .name-title {
-        font-size: clamp(1.5rem, 6vw, 2.5rem);
-    }
-
     .about-grid,
     .goals-grid,
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .footer {
+        padding: 2rem 1rem max(2.5rem, env(safe-area-inset-bottom));
+    }
+
+    .social-links {
+        flex-direction: column;
+        gap: 0.85rem;
+        align-items: center;
+        max-width: 100%;
+    }
+
+    .social-link {
+        padding: 0.35rem 0.5rem;
     }
 }
 
@@ -933,12 +982,13 @@ body {
         grid-template-columns: 1fr;
     }
 
-    .landing {
-        padding: 1rem;
+    .content-section {
+        padding: 2rem 1rem max(2rem, env(safe-area-inset-bottom));
     }
 
-    .content-section {
-        padding: 2rem 1rem;
+    .content-section.active {
+        align-items: flex-start;
+        padding-top: max(3rem, env(safe-area-inset-top));
     }
 }
 

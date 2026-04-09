@@ -19,6 +19,8 @@ let mouseVelocityY = 0;
 let lastMouseTime = Date.now();
 let popupShowCount = 0; // Track how many times popup has been shown
 const maxPopupShows = 3; // Show popup only first 3 times
+/** Inline opacity for snapshots (CSS .cursor-img.active is fallback when no inline set) */
+const SNAPSHOT_DISPLAY_OPACITY = '1';
 
 // Custom cursor element
 let customCursor = null;
@@ -240,9 +242,8 @@ const photoPaths = [
     'images/IMG_9965.jpeg'
 ];
 
-// Popup message
-const popupMessage = "moments from my journey";
-const memoriesMessage = "some moments from journey";
+// Popup when a snapshot appears (landing, first few times)
+const snapshotPopupMessage = "snapshots from life";
 
 // Create additional image elements
 function createAdditionalImages() {
@@ -307,7 +308,7 @@ function showPopupMessage(x, y) {
     // Create popup
     const popup = document.createElement('div');
     popup.className = 'photo-popup';
-    popup.textContent = memoriesMessage;
+    popup.textContent = snapshotPopupMessage;
     popup.style.left = x + 'px';
     popup.style.top = (y - 40) + 'px';
     document.body.appendChild(popup);
@@ -554,7 +555,7 @@ function showImage(img) {
     requestAnimationFrame(() => {
         img.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
         img.style.transform = 'translate(-50%, -50%) scale(1)';
-        img.style.opacity = '0.4';
+        img.style.opacity = SNAPSHOT_DISPLAY_OPACITY;
     });
     
     // Store timeout ID so we can cancel it if cursor moves
@@ -654,10 +655,12 @@ function showCursorImageOnHover(element) {
     randomImg.style.left = centerX + 'px';
     randomImg.style.top = centerY + 'px';
     randomImg.style.transform = 'translate(-50%, -50%) scale(1)';
+    randomImg.style.opacity = SNAPSHOT_DISPLAY_OPACITY;
     
     setTimeout(() => {
         randomImg.classList.remove('active');
         randomImg.style.transform = 'translate(0, 0) scale(0)';
+        randomImg.style.opacity = '0';
     }, 1500);
 }
 

@@ -17,8 +17,8 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-            background: #1a1a1a;
-            color: #ffffff;
+            background: #000000;
+            color: #f2f2f4;
             overflow-x: hidden;
             min-height: 100vh;
         }
@@ -31,7 +31,9 @@
             align-items: center;
             justify-content: center;
             padding: 2rem;
-            background: radial-gradient(ellipse at top, #1a0f2e 0%, #1a1a1a 50%);
+            background:
+                radial-gradient(ellipse 120% 70% at 50% -20%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+                #000000;
             background-attachment: fixed;
         }
 
@@ -84,12 +86,14 @@
             align-items: center;
             gap: 0.5rem;
             padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(28, 28, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 20px;
             font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(242, 242, 244, 0.88);
             margin-bottom: 3rem;
             backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
         }
 
         .hero-title {
@@ -97,7 +101,7 @@
             font-weight: 400;
             line-height: 1.2;
             margin-bottom: 1.5rem;
-            color: #ffffff;
+            color: #f4f6fa;
         }
 
         .hero-title .script {
@@ -109,7 +113,7 @@
 
         .hero-description {
             font-size: clamp(0.9rem, 2vw, 1.1rem);
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(232, 234, 239, 0.72);
             line-height: 1.6;
             margin-bottom: 3rem;
             max-width: 500px;
@@ -130,10 +134,10 @@
             flex: 1;
             min-width: 250px;
             padding: 1rem 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(28, 28, 30, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.14);
             border-radius: 50px;
-            color: #ffffff;
+            color: #f2f2f4;
             font-size: 1rem;
             font-family: inherit;
             backdrop-filter: blur(10px);
@@ -142,20 +146,20 @@
 
         .email-input:focus {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.4);
-            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.35);
+            background: rgba(38, 38, 40, 0.95);
         }
 
         .email-input::placeholder {
-            color: rgba(255, 255, 255, 0.5);
+            color: rgba(168, 168, 174, 0.75);
         }
 
         .notify-btn {
             padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: #f2f2f4;
+            border: 1px solid #f2f2f4;
             border-radius: 50px;
-            color: #ffffff;
+            color: #000000;
             font-size: 1rem;
             font-family: inherit;
             font-weight: 500;
@@ -166,8 +170,8 @@
         }
 
         .notify-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+            background: #ffffff;
+            border-color: #ffffff;
             transform: translateY(-2px);
         }
 
@@ -179,7 +183,7 @@
 
         .success-message {
             margin-top: 1rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(232, 234, 239, 0.85);
             font-size: 0.9rem;
             display: none;
         }
@@ -198,7 +202,7 @@
         }
 
         .auth-link {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(232, 234, 239, 0.7);
             text-decoration: none;
             font-size: 0.9rem;
             padding: 0.5rem 1rem;
@@ -207,15 +211,15 @@
         }
 
         .auth-link:hover {
-            color: #ffffff;
-            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .back-link {
             position: fixed;
             top: 2rem;
             left: 2rem;
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(232, 234, 239, 0.7);
             text-decoration: none;
             font-size: 0.9rem;
             z-index: 100;
@@ -223,7 +227,7 @@
         }
 
         .back-link:hover {
-            color: #ffffff;
+            color: #fff;
         }
 
         /* Auth Modal */
