@@ -6,14 +6,14 @@
 
 /* Theme: Dark (Default) */
 :root {
-    --bg-primary: #000000;
-    --bg-secondary: #0a0a0a;
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #242424;
     --text-primary: #e0e0e0;
     --text-secondary: #888888;
     --accent: #ffffff;
     --accent-secondary: #b0b0b0;
     --accent-tertiary: #d0d0d0;
-    --border-color: #1a1a1a;
+    --border-color: #333333;
     --hover-glow: rgba(255, 255, 255, 0.1);
 }
 
@@ -161,7 +161,7 @@ body {
     padding: 4rem 2rem;
     position: relative;
     overflow: hidden;
-    background: #000000;
+    background: var(--bg-primary);
 }
 
 .landing::before {
